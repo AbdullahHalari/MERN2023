@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
 require("./dbcon")
 const User = require("./userSchema")
 router.get("/", (req, res) => {
@@ -53,6 +55,35 @@ router.post("/register", async (req, res) => {
     console.log(err);
   }
 });
+router.post('/signin',async (req,res)=>{
+  console.log(res.body);
+  try {
+    const {email,password} = req.body;
+    if(!email || !password){
+      return  res.status(400).json({error:'empty fields'})
+    }
+    const userLogin = await User.findOne({email:email});
+    if (userLogin) {
+      const isMatch = await bcrypt.compare(password,userLogin.password);
+      const token = await userLogin.generateAuthToken()
+      console.log(token)
+      res.cookie("jwtoekn",token,{
+        expires: new Date(Date.now()+251346464),
+        httpOnly:true
+      });
+    if (!isMatch) {
+      res.json({error:'user error'})
+      
+    } else {
+      res.json({ error: "Success" });
+    }}
+    else{
+       res.json({ error: "user error" });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 
 module.exports = router;

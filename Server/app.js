@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 // const mongoose = require("mongoose");
 // mongoose
 //   .connect(
-//     "mongodb://127.0.0.1:27017/Cluster0?retryWrites=true&w=majority"
+//     "link"
 //   )
 //   .then(() => {
 //     app.listen(3000, () => {
@@ -26,7 +26,7 @@ const PORT = process.env.PORT;
 // const {MongoClient} = require('mongodb')
 
 // const DB =
-//   "mongodb+srv://halari4321:dan1d1h890>@cluster0.5sg5anc.mongodb.net/Cluster0?retryWrites=true&w=majority";
+//   "link"
 // MongoClient.connect(DB)
 
 //   .then(() => {
