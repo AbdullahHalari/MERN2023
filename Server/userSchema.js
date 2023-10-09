@@ -1,34 +1,43 @@
 const mongooose = require("mongoose");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
 const userSchema = new mongooose.Schema({
-  name: {
+  fullName: {
     type: String,
-    required: true,
+   required: true,
   },
   email: {
     type: String,
-    required: true,
+   required: true,
   },
-  phone: {
+  phoneNumber: {
     type: Number,
-    required: true,
+   required: true,
   },
-  work: {
+  registrationId: {
     type: String,
-    required: true,
+   required: true,
+  },
+  selectedProgram: {
+    type: String,
+   required: true,
+  },
+  specialty: {
+    type: String,
+   required: true,
   },
   password: {
     type: String,
-    required: true,
+   required: true,
   },
-  cpassword: {
+  retypePassword: {
     type: String,
-    required: true,
+   required: true,
   },
   tokens:[
     {
       token:{
-        type:STring,
+        type:String,
         required:true
       }
     }
@@ -37,20 +46,21 @@ const userSchema = new mongooose.Schema({
 userSchema.pre('save',async function (next){
   if(this.isModified('password')){
     this.password = await bcrypt.hash(this.password,12);
-    this.cpassword = await bcrypt.hash(this.cpassword, 12);
+    this.retypePassword = await bcrypt.hash(this.retypePassword, 12);
   }
   next();
 });
-userSchema.method.generateAuthToken = async function (){
+userSchema.methods.generateAuthToken = async function (){
   try {
-    let mytoken  = jwt.sign({_id:this._id},process.env.SECRET_KEY);
-    this.tokens = this.tokens.concat({token:mytoken});
+    let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
+    this.tokens = this.tokens.concat({token:token});
     await this.save();
-    return mytoken 
+    console.log('save')
+    return token 
   } catch (error) {
     console.log(error)
   }
 }
-const User = mongooose.model("Users", userSchema);
+const User = mongooose.model("users", userSchema);
 
 module.exports = User;
