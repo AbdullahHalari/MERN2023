@@ -26,14 +26,14 @@ const AlumniLogin = () => {
    });
 
    const data = await res.json();
-   console.log(data);
+  //  console.log(data);
    if (data.status === 400 || !data) {
      window.alert("Invalid");
      console.log("Invalid");
    } else {
      window.alert("success");
      console.log("success");
-     navigate("/AlumniHome");
+     navigate("/about");
    }
   }
  

@@ -16,14 +16,15 @@ function App() {
   return (
     // <React.Fragment>
     // <AlumniSignUp />
-<Router>
-    <Routes>
-      <Route path="/" element={<AlumniSignUp />} />
-      <Route path="/AlumniSignUp" element={<AlumniSignUp />} />
-      <Route path="/AlumniHome" element={<AlumniHome />} />
-      <Route path="/AlumniLogin" element={<AlumniLogin />} />
-    </Routes>
-</Router>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AlumniSignUp />} />
+        <Route path="/about" element={<AlumniHome />} />
+        <Route path="/AlumniSignUp" element={<AlumniSignUp />} />
+        <Route path="/AlumniHome" element={<AlumniHome />} />
+        <Route path="/AlumniLogin" element={<AlumniLogin />} />
+      </Routes>
+    </Router>
 
     //  </React.Fragment>
     // <div><p>hello</p></div>

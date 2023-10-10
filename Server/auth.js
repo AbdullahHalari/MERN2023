@@ -112,9 +112,29 @@ router.post('/signin',async (req,res)=>{
     console.log(error)
   }
 })
+router.get("/logout", authenticate, async (req, res) => {
+  try {
+    console.log(req.rootUser)
+    //for single device
+    req.rootUser.tokens = req.rootUser.tokens.filter((currElement) => {
+      return currElement.token != req.token;
+    });
+    //for all devices logout 
+    // req.rootUser.tokens =[];  
+
+    res.clearCookie("jwtoken");
+    console.log("logout success");
+    await req.rootUser.save();
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(error);
+  }
+});
 
 router.get('/about',authenticate,(req,res)=>{
+
   console.log('hello about');
+  res.send(req.rootUser)
   res.send('hello about world from server')
 })
 module.exports = router;
