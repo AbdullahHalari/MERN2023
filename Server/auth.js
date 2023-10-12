@@ -91,6 +91,7 @@ router.post('/signin',async (req,res)=>{
       return  res.status(400).json({error:'empty fields'})
     }
     const userLogin = await User.findOne({email:email});
+    
     if (userLogin) {
       const isMatch = await bcrypt.compare(password,userLogin.password);
        token = await userLogin.generateAuthToken()
@@ -105,9 +106,10 @@ router.post('/signin',async (req,res)=>{
     } else {
       res.json({ response: "Success" });
     }}
-    else{
-       res.status(400).json({ error: "user error" });
+     else {
+      res.status(400).json({ error: "user error" });
     }
+    
   } catch (error) {
     console.log(error)
   }

@@ -30,7 +30,12 @@ const AlumniLogin = () => {
    if (data.status === 400 || !data) {
      window.alert("Invalid");
      console.log("Invalid");
-   } else {
+   }
+  //  if(data.status === 400){
+  //   window.alert("Invalid");
+  //   console.log("Invalid");
+  //  }
+    else {
      window.alert("success");
      console.log("success");
      navigate("/about");

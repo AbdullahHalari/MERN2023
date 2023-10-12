@@ -22,6 +22,9 @@ const AlumniHome = () => {
         const error = new Error(res.error);
         throw error;
       }
+      if(res.status===401){
+        navigate("/AlumniLogin");
+      }
     } catch (error) {
       console.log(error)
       navigate('/AlumniLogin')
